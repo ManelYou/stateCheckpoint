@@ -1,25 +1,61 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  
+  constructor(props) {
+    super(props);
+
+    this.state = {  Person :{ 
+      fullName : "Manel",
+      bio: "bio", 
+      imgSrc:"", 
+      profession:"Engineer"},
+    Shows: false,
+    message: "Show me",
+    date: new Date()};
+  };
+
+  ButtonChange = () =>{
+    this.setState({Shows: !this.state.Shows, message: this.state.Shows ? "Show me": "Hide me"})
+  }
+
+  componentDidMount() {
+    this.timerID = setInterval(
+      () => this.tick(),
+      1000
+    );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  tick() {
+    this.setState({ 
+      date: new Date()
+    });
+  }
+
+
+  render() {
+    return(
+      <div>
+        <button onClick={this.ButtonChange}>{this.state.message}</button>
+        
+        {this.state.Shows && <>
+          <h1>FirstName {this.state.Person.fullName}</h1>
+          <h1>bio {this.state.Person.bio}</h1>
+          <img></img>
+          <h1>Profession: {this.state.Person.profession}</h1>
+        </>}
+
+        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+      </div>
+    ) ;
+  }
+
+
 }
 
 export default App;
